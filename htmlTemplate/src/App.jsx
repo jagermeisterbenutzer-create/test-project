@@ -1,7 +1,8 @@
-import Welcome from './Welcome';\nimport './App.css';
+import SnakeGame from './SnakeGame';
+import './App.css';
 
 function App() {
-  return <Welcome />;
+  return <SnakeGame />;
 }
 
 export default App
