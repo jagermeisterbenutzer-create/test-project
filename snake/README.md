@@ -1,58 +1,67 @@
 # Snake Game
 
-This README provides instructions for setting up and running the Snake Game project.
+This README has been updated to include clear instructions for setting up and running the Snake Game project, along with details about its usage.
+
+---
 
 ## Installation
 
-Before running the game, ensure you have the following installed:
+Before running the application, ensure the following:
 
-- Node.js (v16 or later recommended)
-- npm (installed with Node.js) or Yarn
+- Node.js v16 or later is installed
+- npm or Yarn as a package manager is installed
 
-## Setup Instructions
+---
 
-1. Clone this repository:
-   ```bash
-   git clone <repository-url>
-   cd <repository-name>/snake
-   ```
+## Setup
 
-2. Install dependencies using npm or Yarn:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+1. **Clone the Repository:**
+    ```bash
+    git clone https://example.com/repository-url.git
+    cd repository-name/snake
+    ```
+
+2. **Install Dependencies:**
+    ```bash
+    npm install
+    ```
+    OR
+    ```bash
+    yarn install
+    ```
+
+---
 
 ## Running the Game
 
-To start the development server, use one of the following commands:
+1. To run in development mode:
+    ```bash
+    npm start
+    ```
+    OR
+    ```bash
+    yarn start
+    ```
 
-- With npm:
-  ```bash
-  npm start
-  ```
+2. Open: [http://localhost:3000](http://localhost:3000)
 
-- With Yarn:
-  ```bash
-  yarn start
-  ```
-
-This will launch the game, and it will be available at:
-[http://localhost:3000](http://localhost:3000)
+---
 
 ## Building for Production
 
-To build the game for production, run:
-```bash
-npm run build
-# or
-yarn build
-```
+For a production build:
+    ```bash
+    npm run build
+    ```
+    OR
+    ```bash
+    yarn build
+    ```
 
-This will create an optimized production build in the `build/` directory.
+Builds are saved under the `/build` directory.
+
+---
 
 ## Additional Notes
 
-- Ensure you have an active internet connection to fetch external dependencies during `npm install` or `yarn install`.
-- If you encounter issues, ensure that your Node.js and npm/Yarn versions comply with the project requirements.
+- An active internet connection may be required for installation.
