@@ -1,71 +1,71 @@
-# React Application
+# Snake Game
 
-This README has been updated to provide detailed information about setting up and running the React application, along with common commands and troubleshooting steps.
+A Snake game built with React 19 and Vite 7. Deployed to GitHub Pages.
 
----
-
-## Installation
-
-Ensure the following are installed before running the application:
-
-- Node.js (v16 or later recommended)
-- npm (installed with Node.js) or Yarn as your package manager
+**Live demo:** https://jagermeisterbenutzer-create.github.io/test-project/
 
 ---
+
+## Prerequisites
+
+- Node.js (v18 or later)
+- npm
 
 ## Setup
 
-1. **Clone the Repository:**
-    ```bash
-    git clone https://example.com/repository-url.git
-    cd repository-name
-    ```
+```bash
+cd htmlTemplate
+npm install
+```
 
-2. **Install Dependencies:**
-    ```bash
-    npm install
-    ```
-    OR
-    ```bash
-    yarn install
-    ```
+## Development
 
----
+```bash
+npm run dev
+```
 
-## Running the Development Server
+Opens a dev server at http://localhost:5173
 
-- With npm:
-    ```bash
-    npm start
-    ```
-    OR
-- With Yarn:
-    ```bash
-    yarn start
-    ```
-
-**Access the application at**: [http://localhost:3000](http://localhost:3000)
-
----
-
-## Building for Production
-
-To create an optimized production build:
+## Production Build
 
 ```bash
 npm run build
+npm run preview
 ```
-OR
+
+Built files are output to `htmlTemplate/dist/`.
+
+## Deployment
+
+The project deploys automatically to GitHub Pages via GitHub Actions on every push to `main`.
+
+To enable deployment:
+1. Go to repository **Settings > Pages**
+2. Set **Source** to **GitHub Actions**
+3. Push to `main` -- the workflow at `.github/workflows/deploy.yml` will build and deploy
+
+## Project Structure
+
+```
+htmlTemplate/           # React frontend (Snake Game)
+  src/
+    App.jsx             # Root component
+    SnakeGame.jsx       # Game logic and rendering
+    GameSettingsContext.jsx  # Settings state (board size, speed, etc.)
+    SettingsMenu.jsx    # Settings UI
+backend/                # Express.js API stub
+```
+
+## Testing
+
 ```bash
-yarn build
+cd htmlTemplate
+npm test
 ```
 
-**Built files are located in the `build/` folder.**
+## Linting
 
----
-
-## Troubleshooting
-
-- **Node.js Compatibility:** Ensure you are using Node.js versions matching this project’s requirements.
-- If issues arise, verify `npm` or `yarn` versions are up-to-date.
-- Check internet connection during dependency installs.
+```bash
+cd htmlTemplate
+npm run lint
+```
