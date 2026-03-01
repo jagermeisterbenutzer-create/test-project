@@ -1,11 +1,14 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useContext } from 'react';
+import { GameSettingsContext } from './GameSettingsContext';
 import './SnakeGame.css';
 
-const BOARD_SIZE = 20;
-const CELL_SIZE = 25;
-const INITIAL_SPEED = 150;
-const SPEED_INCREMENT = 5;
-const MIN_SPEED = 50;
+const SnakeGame = () => {
+  const { settings } = useContext(GameSettingsContext);
+  const BOARD_SIZE = settings.boardSize;
+  const CELL_SIZE = settings.cellSize;
+  const INITIAL_SPEED = settings.initialSpeed;
+  const SPEED_INCREMENT = settings.speedIncrement;
+  const MIN_SPEED = settings.minSpeed;
 
 const Direction = {
   UP: { x: 0, y: -1 },
@@ -25,7 +28,7 @@ function getRandomPosition(snake) {
   return position;
 }
 
-function SnakeGame() {
+
   const initialSnake = [
     { x: 10, y: 10 },
     { x: 9, y: 10 },
@@ -267,5 +270,6 @@ function SnakeGame() {
     </div>
   );
 }
+
 
 export default SnakeGame;
