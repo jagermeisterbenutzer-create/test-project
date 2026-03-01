@@ -1,11 +1,41 @@
-# React Application Starter Template with Vite
+# Snake Game Frontend (Vite + React)
 
-This README describes the minimal setup for using Vite to run a lightweight React development environment.
+This frontend powers the Snake game UI, built with React 19 and Vite 7.
 
 ---
 
-## Overview
+## Prerequisites
 
-This starter template is designed to provide:
-- HMR (Hot Module Replacement) environment for React
-- Faster development with minimal configuration and clear Vite Plugin Info.
+- Node.js 18+
+- npm
+
+## Setup
+
+```bash
+npm install
+```
+
+## Development
+
+```bash
+npm run dev
+```
+
+Opens a dev server at http://localhost:5173
+
+## Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+Built files are output to `dist/`.
+
+## Scripts
+
+- `npm run dev` - start Vite dev server
+- `npm run build` - build for production
+- `npm run preview` - preview the production build
+- `npm run lint` - run ESLint
+- `npm test` - run Jest tests

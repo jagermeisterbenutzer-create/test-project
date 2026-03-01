@@ -1,6 +1,6 @@
 # Snake Game
 
-A Snake game built with React 19 and Vite 7. Deployed to GitHub Pages.
+A Snake game built with React 19 and Vite 7, with a small Express backend stub.
 
 **Live demo:** https://jagermeisterbenutzer-create.github.io/test-project/
 
@@ -13,22 +13,38 @@ A Snake game built with React 19 and Vite 7. Deployed to GitHub Pages.
 
 ## Setup
 
+Frontend:
 ```bash
 cd htmlTemplate
 npm install
 ```
 
+Backend (optional):
+```bash
+cd backend
+npm install
+```
+
 ## Development
 
+Frontend:
 ```bash
+cd htmlTemplate
 npm run dev
 ```
 
 Opens a dev server at http://localhost:5173
 
+Backend (optional):
+```bash
+cd backend
+npm run dev
+```
+
 ## Production Build
 
 ```bash
+cd htmlTemplate
 npm run build
 npm run preview
 ```
