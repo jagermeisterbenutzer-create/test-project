@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Press+Start+2P&display=swap');
+
+:root {
+  --bg-primary: #050b1a;
+  --bg-gradient: linear-gradient(180deg, #0d1d3a 0%, #071023 45%, #040608 100%);
+  --accent: #fdda6a;
+  --accent-muted: #ff7c5f;
+  --panel: rgba(13, 24, 58, 0.8);
+  --panel-border: rgba(255, 255, 255, 0.15);
+  --text-primary: #f9fbff;
+  --text-secondary: #a1b6ff;
+  --shell-radius: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.shell-root {
+  width: min(960px, 100%);
+  background: radial-gradient(circle at top, rgba(253, 218, 106, 0.3), transparent 60%),
+    var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--shell-radius);
+  padding: 2rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.shell-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.shell-header h1 {
+  margin: 0.25rem 0 0;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+}
+
+.shell-lede {
+  margin: 0.35rem 0 0;
+  max-width: 28ch;
+  color: var(--text-secondary);
+}
+
+.shell-tag {
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-muted);
+}
+
+.shell-status {
+  text-align: right;
+}
+
+.shell-status #current-direction {
+  font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0;
+}
+
+.game-panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 1.5rem;
+}
+
+.canvas-stack {
+  position: relative;
+  width: 640px;
+  height: 480px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #040912;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.canvas-stack canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: optimizeSpeed;
+}
+
+.hud {
+  border-left: 1px solid var(--panel-border);
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hud-title {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.hud ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hud li {
+  font-size: 0.95rem;
+}
+
+.asset-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.asset-list figure {
+  margin: 0;
+  text-align: center;
+}
+
+.asset-list img {
+  width: 56px;
+  height: 56px;
+  display: block;
+  margin: 0 auto 0.35rem;
+}
+
+.asset-list figcaption {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.guide {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .game-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .hud {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--panel-border);
+    padding-top: 1.25rem;
+  }
+}

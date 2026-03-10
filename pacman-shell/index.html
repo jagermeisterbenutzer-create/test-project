@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pacman Web Shell</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell-root">
+      <header class="shell-header">
+        <div>
+          <p class="shell-tag">Web Shell Prototype</p>
+          <h1>Pacman Web Shell</h1>
+          <p class="shell-lede">
+            Canvas-backed layers, placeholder assets, and basic input wiring to move
+            Pacman while the maze awaits the rest of the game logic.
+          </p>
+        </div>
+        <div class="shell-status">
+          <p>Current input:</p>
+          <p aria-live="polite" id="current-direction">Right</p>
+        </div>
+      </header>
+
+      <section class="game-panel" aria-label="Pacman preview area">
+        <div class="canvas-stack">
+          <canvas
+            id="maze-layer"
+            width="640"
+            height="480"
+            aria-hidden="true"
+          ></canvas>
+          <canvas
+            id="sprite-layer"
+            width="640"
+            height="480"
+            aria-hidden="true"
+          ></canvas>
+        </div>
+        <div class="hud">
+          <p class="hud-title">Controls</p>
+          <ul>
+            <li>Arrow keys / WASD to steer</li>
+            <li>Canvas layers organized for maze, sprites, and future overlays</li>
+          </ul>
+          <p class="hud-title">Loaded assets</p>
+          <div class="asset-list" aria-label="Placeholder assets">
+            <figure>
+              <img src="assets/pacman.svg" alt="Pacman placeholder asset" />
+              <figcaption>Pacman</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/ghost.svg" alt="Ghost placeholder asset" />
+              <figcaption>Ghost</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/pellet.svg" alt="Pellet placeholder asset" />
+              <figcaption>Pellet</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide">
+        <p>Use keyboard input to steer Pacman around the mock maze.</p>
+        <p>
+          Movement is constrained to the canvas bounds for now; extend the loop to
+          tie into your maze builder when ready.
+        </p>
+      </section>
+    </main>
+    <script src="app.js" defer></script>
+  </body>
+</html>
