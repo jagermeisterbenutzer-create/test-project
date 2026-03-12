@@ -2,6 +2,24 @@ import { useState, useEffect, useCallback, useRef, useContext } from 'react';
 import { GameSettingsContext } from './GameSettingsContext';
 import './SnakeGame.css';
 
+const Direction = {
+  UP: { x: 0, y: -1 },
+  DOWN: { x: 0, y: 1 },
+  LEFT: { x: -1, y: 0 },
+  RIGHT: { x: 1, y: 0 },
+};
+
+function getRandomPosition(snake, boardSize) {
+  let position;
+  do {
+    position = {
+      x: Math.floor(Math.random() * boardSize),
+      y: Math.floor(Math.random() * boardSize),
+    };
+  } while (snake.some((seg) => seg.x === position.x && seg.y === position.y));
+  return position;
+}
+
 const SnakeGame = () => {
   const { settings } = useContext(GameSettingsContext);
   const BOARD_SIZE = settings.boardSize;
@@ -10,33 +28,17 @@ const SnakeGame = () => {
   const SPEED_INCREMENT = settings.speedIncrement;
   const MIN_SPEED = settings.minSpeed;
 
-const Direction = {
-  UP: { x: 0, y: -1 },
-  DOWN: { x: 0, y: 1 },
-  LEFT: { x: -1, y: 0 },
-  RIGHT: { x: 1, y: 0 },
-};
+  const createInitialSnake = useCallback(() => {
+    const center = Math.max(2, Math.floor(BOARD_SIZE / 2));
+    return [
+      { x: center, y: center },
+      { x: center - 1, y: center },
+      { x: center - 2, y: center },
+    ];
+  }, [BOARD_SIZE]);
 
-function getRandomPosition(snake) {
-  let position;
-  do {
-    position = {
-      x: Math.floor(Math.random() * BOARD_SIZE),
-      y: Math.floor(Math.random() * BOARD_SIZE),
-    };
-  } while (snake.some((seg) => seg.x === position.x && seg.y === position.y));
-  return position;
-}
-
-
-  const initialSnake = [
-    { x: 10, y: 10 },
-    { x: 9, y: 10 },
-    { x: 8, y: 10 },
-  ];
-
-  const [snake, setSnake] = useState(initialSnake);
-  const [food, setFood] = useState(() => getRandomPosition(initialSnake));
+  const [snake, setSnake] = useState(() => createInitialSnake());
+  const [food, setFood] = useState(() => getRandomPosition(createInitialSnake(), BOARD_SIZE));
   const [direction, setDirection] = useState(Direction.RIGHT);
   const [isRunning, setIsRunning] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -51,6 +53,8 @@ function getRandomPosition(snake) {
   const snakeRef = useRef(snake);
   const foodRef = useRef(food);
   const speedRef = useRef(speed);
+  const musicRef = useRef(null);
+  const sfxRef = useRef(null);
 
   useEffect(() => {
     directionRef.current = direction;
@@ -69,19 +73,15 @@ function getRandomPosition(snake) {
   }, [speed]);
 
   const resetGame = useCallback(() => {
-    const newSnake = [
-      { x: 10, y: 10 },
-      { x: 9, y: 10 },
-      { x: 8, y: 10 },
-    ];
+    const newSnake = createInitialSnake();
     setSnake(newSnake);
-    setFood(getRandomPosition(newSnake));
+    setFood(getRandomPosition(newSnake, BOARD_SIZE));
     setDirection(Direction.RIGHT);
     setIsGameOver(false);
     setScore(0);
     setSpeed(INITIAL_SPEED);
     setIsRunning(false);
-  }, []);
+  }, [BOARD_SIZE, createInitialSnake, INITIAL_SPEED]);
 
   const moveSnake = useCallback(() => {
     const currentSnake = snakeRef.current;
@@ -121,9 +121,13 @@ function getRandomPosition(snake) {
         setHighScore(newScore);
         localStorage.setItem('snakeHighScore', String(newScore));
       }
-      setFood(getRandomPosition(newSnake));
+      setFood(getRandomPosition(newSnake, BOARD_SIZE));
       const newSpeed = Math.max(MIN_SPEED, speedRef.current - SPEED_INCREMENT);
       setSpeed(newSpeed);
+      if (sfxRef.current) {
+        sfxRef.current.currentTime = 0;
+        sfxRef.current.play().catch(() => {});
+      }
     } else {
       newSnake.pop();
     }
@@ -137,6 +141,19 @@ function getRandomPosition(snake) {
     const interval = setInterval(moveSnake, speed);
     return () => clearInterval(interval);
   }, [isRunning, isGameOver, speed, moveSnake]);
+
+  useEffect(() => {
+    const music = musicRef.current;
+    if (!music) return;
+
+    if (isRunning && !isGameOver) {
+      music.volume = 0.18;
+      music.play().catch(() => {});
+    } else {
+      music.pause();
+      music.currentTime = 0;
+    }
+  }, [isRunning, isGameOver]);
 
   const handleKeyDown = useCallback(
     (e) => {
@@ -231,7 +248,7 @@ function getRandomPosition(snake) {
 
   return (
     <div className="snake-game">
-      <h1 className="snake-title">Snake Game</h1>
+      <h1 className="snake-title">Snake Kong</h1>
       <div className="snake-scoreboard">
         <span className="snake-score">Score: {score}</span>
         <span className="snake-high-score">Best: {highScore}</span>
@@ -246,7 +263,7 @@ function getRandomPosition(snake) {
         {renderBoard()}
         {!isRunning && !isGameOver && score === 0 && (
           <div className="snake-overlay">
-            <p>Press any arrow key or WASD to start</p>
+            <p>Press arrow or WASD</p>
             <p className="snake-hint">Space to pause</p>
           </div>
         )}
@@ -267,9 +284,11 @@ function getRandomPosition(snake) {
           </div>
         )}
       </div>
+      <audio ref={musicRef} src="/assets/arcade-loop.wav" loop autoPlay muted={false} />
+      <audio ref={sfxRef} src="/assets/arcade-ping.wav" preload="auto" />
     </div>
   );
-}
+};
 
 
 export default SnakeGame;
